@@ -357,7 +357,7 @@ return: void
 
         Button button = new Button(this);
 
-        button.setBackgroundColor(Color.LTGRAY);
+        button.setBackgroundColor(Color.WHITE);
 
         button.setTextSize(14f);
         button.setAllCaps(false);
