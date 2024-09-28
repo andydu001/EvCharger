@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EvCharger</string>
+    <string name="valid_name">Enter a valide name like us, uk, or canada</string>
+    <string name="empty_string"> </string>
+</resources>
