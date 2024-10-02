@@ -42,8 +42,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,40 +108,39 @@ public class MainActivity extends AppCompatActivity {
 
         default_text();
 
-        /*
+         /*
 
         make a call to search query
         In this we validate the url
+
          */
+
+        Dictionary<String, String> dictionary_next = dixtionary(new Hashtable<>());
+
         charger_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(query.toLowerCase().equals("canada")){
 
-                    url = "https://api.openchargemap.io/v3/poi/?output=json&countrycode=ca&maxresults=100?key=5709af2d-598b-4027-95a0-ffb036bc1851";
-                    jsonRequest();
-                }
+                //  Dictionary<String, String> dictionary_next = dixtionary(new Hashtable<>());
+                if (dictionary_next.keys().hasMoreElements()) {
+                dictionary_next.keys().asIterator().forEachRemaining(new Consumer<String>() {
+                    @Override
+                    public void accept(String string) {
+                        if (Objects.equals(query.strip().toLowerCase(),string)) {
 
 
-                else if (query.toLowerCase().equals("us")) {
-                    url = "https://api.openchargemap.io/v3/poi/?output=json&countrycode=us&maxresults" +
-                            "=100?key=5709af2d-598b-4027-95a0-ffb036bc1851";
-                    jsonRequest();
-                }
+                            url = dictionary_next.get(string).toString();
+                            jsonRequest();
+                        }
+                        else {
 
-                else if (query.toLowerCase().equals("uk")) {
+                            // call to animation
+                            animation();
+                        }
 
-                    url = "https://api.openchargemap.io/v3/poi/?output=json&countrycode=gb&maxresults" +
-                            "=100?key=5709af2d-598b-4027-95a0-ffb036bc1851";
-                    jsonRequest();
-                }
-
-                else {
-
-                    // call to animation
-                    animation();
-                }
-
+                    }
+                });
+               }
 
 
                 return true;
@@ -146,9 +148,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+
+                return true;
             }
         });
+
     }
 
 
@@ -523,6 +527,13 @@ return: void
             }
         });
 
+    }
+    public Dictionary<String,String> dixtionary(Dictionary<String,String> dictionary){
+
+        dictionary.put("canada","https://api.openchargemap.io/v3/poi/?output=json&countrycode=ca&maxresults=100?key=5709af2d-598b-4027-95a0-ffb036bc1851");
+        dictionary.put("us","https://api.openchargemap.io/v3/poi/?output=json&countrycode=us&maxresults=100?key=5709af2d-598b-4027-95a0-ffb036bc1851");
+        dictionary.put("uk","https://api.openchargemap.io/v3/poi/?output=json&countrycode=uk&maxresults=100?key=5709af2d-598b-4027-95a0-ffb036bc1851");
+        return dictionary;
     }
 
 }
