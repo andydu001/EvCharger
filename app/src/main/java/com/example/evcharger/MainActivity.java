@@ -528,6 +528,13 @@ return: void
         });
 
     }
+    /*
+
+      create a dictionary
+      param(s) dictionary
+      return dictionary
+
+     */
     public Dictionary<String,String> dixtionary(Dictionary<String,String> dictionary){
 
         dictionary.put("canada","https://api.openchargemap.io/v3/poi/?output=json&countrycode=ca&maxresults=100?key=5709af2d-598b-4027-95a0-ffb036bc1851");
